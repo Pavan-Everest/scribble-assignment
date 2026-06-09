@@ -42,6 +42,12 @@ You are working on a monolithic repository for a multiplayer drawing game ("Scri
 -   When creating or editing files, ensure consistency with the existing directory structure detailed above.
 
 <!-- SPECKIT START -->
-For additional context about technologies to be used, project structure,
-shell commands, and other important information, read the current plan
+Current Spec Kit plan: `specs/001-room-lobby-flow/plan.md`
+
+For the active room setup and lobby feature, also read:
+- `specs/001-room-lobby-flow/spec.md`
+- `specs/001-room-lobby-flow/research.md`
+- `specs/001-room-lobby-flow/data-model.md`
+- `specs/001-room-lobby-flow/contracts/rooms.openapi.yaml`
+- `specs/001-room-lobby-flow/quickstart.md`
 <!-- SPECKIT END -->
