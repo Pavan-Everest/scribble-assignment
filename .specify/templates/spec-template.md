@@ -19,7 +19,7 @@
   Think of each story as a standalone slice of functionality that can be:
   - Developed independently
   - Tested independently
-  - Deployed independently
+  - Demonstrated independently
   - Demonstrated to users independently
 -->
 
@@ -87,16 +87,24 @@
 
 ### Functional Requirements
 
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
+- **FR-001**: System MUST [specific Scribble capability, e.g., "allow a host to create a room with a trimmed player name"]
+- **FR-002**: System MUST [validation behavior, e.g., "reject empty or whitespace-only player names with clear feedback"]
+- **FR-003**: Users MUST be able to [key interaction, e.g., "join an existing room by code"]
+- **FR-004**: System MUST [state requirement, e.g., "keep each room isolated in backend memory"]
+- **FR-005**: System MUST [sync behavior, e.g., "refresh shared room state through HTTP polling"]
 
 *Example of marking unclear requirements:*
 
-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
+- **FR-006**: System MUST select the drawer using [NEEDS CLARIFICATION: drawer assignment rule not specified - host, first player, or another deterministic rule?]
+- **FR-007**: System MUST refresh shared state every [NEEDS CLARIFICATION: polling cadence not specified]
+
+### Constitution Constraints *(mandatory)*
+
+- **CC-001**: Feature MUST use TypeScript and ES Modules in both `frontend/` and `backend/`.
+- **CC-002**: Feature MUST use HTTP REST requests and polling for synchronization.
+- **CC-003**: Feature MUST keep all room/game state in memory only; databases and persistent storage are out of scope.
+- **CC-004**: Feature MUST NOT add WebSockets, Socket.io, server-sent events, authentication, sessions, JWT, OAuth, deployment, Docker, or unrelated dependencies.
+- **CC-005**: Backend request and response boundaries MUST use Zod validation.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -112,10 +120,10 @@
 
 ### Measurable Outcomes
 
-- **SC-001**: [Measurable metric, e.g., "Users can complete account creation in under 2 minutes"]
-- **SC-002**: [Measurable metric, e.g., "System handles 1000 concurrent users without degradation"]
-- **SC-003**: [User satisfaction metric, e.g., "90% of users successfully complete primary task on first attempt"]
-- **SC-004**: [Business metric, e.g., "Reduce support tickets related to [X] by 50%"]
+- **SC-001**: [Measurable metric, e.g., "Players can create or join a room in under 1 minute"]
+- **SC-002**: [Measurable metric, e.g., "Two browser tabs see updated lobby state within about 2 seconds"]
+- **SC-003**: [User outcome metric, e.g., "Players receive clear feedback for invalid room codes or empty input"]
+- **SC-004**: [Validation metric, e.g., "Correct guesses score deterministically and appear in synced history"]
 
 ## Assumptions
 
@@ -127,5 +135,5 @@
 
 - [Assumption about target users, e.g., "Users have stable internet connectivity"]
 - [Assumption about scope boundaries, e.g., "Mobile support is out of scope for v1"]
-- [Assumption about data/environment, e.g., "Existing authentication system will be reused"]
-- [Dependency on existing system/service, e.g., "Requires access to the existing user profile API"]
+- [Assumption about data/environment, e.g., "Room state resets when the backend restarts"]
+- [Dependency on existing system/service, e.g., "Uses the starter word list from backend seed data"]

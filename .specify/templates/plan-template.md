@@ -18,21 +18,21 @@
   the iteration process.
 -->
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]
+**Language/Version**: TypeScript with ES Modules for both frontend and backend
 
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]
+**Primary Dependencies**: Frontend: Vite, React 18, React Router v6; Backend: Node.js, Express, Zod
 
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
+**Storage**: In-memory room/game state only; databases and persistent storage are out of scope
 
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]
+**Testing**: Vitest for focused frontend/backend tests; build validation with npm scripts
 
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+**Target Platform**: Browser client plus local Node.js REST service
 
-**Project Type**: [e.g., library/cli/web-service/mobile-app/compiler/desktop-app or NEEDS CLARIFICATION]
+**Project Type**: Brownfield web app with `frontend/` client and `backend/` service
 
 **Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]
 
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]
+**Constraints**: HTTP polling only; no WebSockets, no databases, no authentication, no sessions
 
 **Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
@@ -40,7 +40,20 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+Answer each gate with Pass/Fail and a short rationale:
+
+- TypeScript/ESM gate: changes remain fully typed across `frontend/` and `backend/`,
+  avoid `any`, and use Zod at backend API boundaries.
+- REST/in-memory gate: synchronization uses HTTP polling only, and all room/game
+  state remains in backend memory without databases or persistent storage.
+- Scope gate: no WebSockets, Socket.io, server-sent events, authentication,
+  sessions, JWT, OAuth, deployment, Docker, or unrelated dependencies are added.
+- Game-rule gate: room isolation, host/role visibility, word selection, guess
+  validation, scoring, result, and restart behavior are deterministic and specified.
+- Frontend resilience gate: API failures, invalid inputs, page refresh, and missing
+  room data produce safe UI feedback or navigation.
+- Traceability gate: discovery notes, spec, plan, tasks, implementation, and
+  validation evidence stay aligned.
 
 ## Project Structure
 
@@ -65,39 +78,25 @@ specs/[###-feature]/
 -->
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
-
-tests/
-├── contract/
-├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
 backend/
 ├── src/
+│   ├── api/
 │   ├── models/
 │   ├── services/
-│   └── api/
-└── tests/
+│   ├── seed/
+│   ├── app.ts
+│   └── server.ts
+└── package.json
 
 frontend/
 ├── src/
 │   ├── components/
 │   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+│   ├── routes/
+│   ├── services/
+│   ├── state/
+│   └── styles/
+└── package.json
 ```
 
 **Structure Decision**: [Document the selected structure and reference the real
@@ -109,5 +108,5 @@ directories captured above]
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+| [e.g., new dependency] | [current need] | [why existing stack is insufficient] |
+| [e.g., polling cadence exception] | [specific problem] | [why standard ~2s polling is insufficient] |

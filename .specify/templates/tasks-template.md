@@ -9,7 +9,7 @@ description: "Task list template for feature implementation"
 
 **Prerequisites**: plan.md (required), spec.md (required for user stories), research.md, data-model.md, contracts/
 
-**Tests**: The examples below include test tasks. Tests are OPTIONAL - only include them if explicitly requested in the feature specification.
+**Tests**: Include focused tests for behavior changes unless the plan documents a docs-only or manual-validation-only reason.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
@@ -21,10 +21,10 @@ description: "Task list template for feature implementation"
 
 ## Path Conventions
 
-- **Single project**: `src/`, `tests/` at repository root
-- **Web app**: `backend/src/`, `frontend/src/`
-- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
-- Paths shown below assume single project - adjust based on plan.md structure
+- **Backend**: `backend/src/api/`, `backend/src/services/`, `backend/src/models/`
+- **Frontend**: `frontend/src/components/`, `frontend/src/pages/`, `frontend/src/services/`, `frontend/src/state/`, `frontend/src/styles/`
+- **Docs/Specs**: `docs/`, `specs/[###-feature-name]/`
+- Test files normally live beside the TypeScript source they validate, following the current repo pattern.
 
 <!--
   ============================================================================
@@ -50,7 +50,7 @@ description: "Task list template for feature implementation"
 **Purpose**: Project initialization and basic structure
 
 - [ ] T001 Create project structure per implementation plan
-- [ ] T002 Initialize [language] project with [framework] dependencies
+- [ ] T002 Verify existing TypeScript, Vite, React, Express, and Zod setup
 - [ ] T003 [P] Configure linting and formatting tools
 
 ---
@@ -63,12 +63,13 @@ description: "Task list template for feature implementation"
 
 Examples of foundational tasks (adjust based on your project):
 
-- [ ] T004 Setup database schema and migrations framework
-- [ ] T005 [P] Implement authentication/authorization framework
-- [ ] T006 [P] Setup API routing and middleware structure
-- [ ] T007 Create base models/entities that all stories depend on
-- [ ] T008 Configure error handling and logging infrastructure
-- [ ] T009 Setup environment configuration management
+- [ ] T004 Define or update TypeScript game models in `backend/src/models/`
+- [ ] T005 [P] Define or update Zod request/response schemas in `backend/src/api/schemas.ts`
+- [ ] T006 [P] Update API routing and centralized error handling in `backend/src/api/` as needed
+- [ ] T007 Update in-memory room/game state management in `backend/src/services/roomStore.ts`
+- [ ] T008 Update frontend API contracts in `frontend/src/services/api.ts`
+- [ ] T009 Update frontend room/session state in `frontend/src/state/roomStore.ts`
+- [ ] T010 Document polling, validation, and no-database/no-auth constraints in the plan
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -80,21 +81,21 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 1 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 1
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T011 [P] [US1] Backend API/service test in `backend/src/[path]/[name].test.ts`
+- [ ] T012 [P] [US1] Frontend state/component test in `frontend/src/[path]/[name].test.tsx`
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
-- [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
-- [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
-- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T016 [US1] Add validation and error handling
-- [ ] T017 [US1] Add logging for user story 1 operations
+- [ ] T013 [P] [US1] Update backend model/schema in `backend/src/models/` or `backend/src/api/schemas.ts`
+- [ ] T014 [US1] Implement backend service logic in `backend/src/services/roomStore.ts`
+- [ ] T015 [US1] Implement API route behavior in `backend/src/api/rooms.ts`
+- [ ] T016 [US1] Implement frontend API/state updates in `frontend/src/services/api.ts` and `frontend/src/state/roomStore.ts`
+- [ ] T017 [US1] Implement page/component UI in `frontend/src/pages/` or `frontend/src/components/`
+- [ ] T018 [US1] Add validation feedback and graceful error handling
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -106,17 +107,17 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 2
 
-- [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T019 [P] [US2] Backend API/service test in `backend/src/[path]/[name].test.ts`
+- [ ] T020 [P] [US2] Frontend state/component test in `frontend/src/[path]/[name].test.tsx`
 
 ### Implementation for User Story 2
 
-- [ ] T020 [P] [US2] Create [Entity] model in src/models/[entity].py
-- [ ] T021 [US2] Implement [Service] in src/services/[service].py
-- [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T023 [US2] Integrate with User Story 1 components (if needed)
+- [ ] T021 [P] [US2] Update backend model/schema in `backend/src/models/` or `backend/src/api/schemas.ts`
+- [ ] T022 [US2] Implement backend service/API behavior in `backend/src/services/` and `backend/src/api/`
+- [ ] T023 [US2] Implement frontend state and UI behavior in `frontend/src/`
+- [ ] T024 [US2] Integrate with User Story 1 components if needed
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -128,16 +129,16 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
+### Tests for User Story 3
 
-- [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T025 [P] [US3] Backend API/service test in `backend/src/[path]/[name].test.ts`
+- [ ] T026 [P] [US3] Frontend state/component test in `frontend/src/[path]/[name].test.tsx`
 
 ### Implementation for User Story 3
 
-- [ ] T026 [P] [US3] Create [Entity] model in src/models/[entity].py
-- [ ] T027 [US3] Implement [Service] in src/services/[service].py
-- [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T027 [P] [US3] Update backend model/schema in `backend/src/models/` or `backend/src/api/schemas.ts`
+- [ ] T028 [US3] Implement backend service/API behavior in `backend/src/services/` and `backend/src/api/`
+- [ ] T029 [US3] Implement frontend state and UI behavior in `frontend/src/`
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -154,8 +155,8 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] TXXX [P] Documentation updates in docs/
 - [ ] TXXX Code cleanup and refactoring
 - [ ] TXXX Performance optimization across all stories
-- [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
-- [ ] TXXX Security hardening
+- [ ] TXXX [P] Additional focused tests in existing `*.test.ts` or `*.test.tsx` patterns
+- [ ] TXXX Constitution scope check: no WebSockets, databases, authentication, sessions, or unrelated dependencies
 - [ ] TXXX Run quickstart.md validation
 
 ---
@@ -179,9 +180,9 @@ Examples of foundational tasks (adjust based on your project):
 
 ### Within Each User Story
 
-- Tests (if included) MUST be written and FAIL before implementation
-- Models before services
-- Services before endpoints
+- Tests MUST be written and FAIL before implementation unless the plan documents a manual-validation-only exception
+- Models and schemas before services
+- Services before endpoints and frontend integration
 - Core implementation before integration
 - Story complete before moving to next priority
 
@@ -191,7 +192,7 @@ Examples of foundational tasks (adjust based on your project):
 - All Foundational tasks marked [P] can run in parallel (within Phase 2)
 - Once Foundational phase completes, all user stories can start in parallel (if team capacity allows)
 - All tests for a user story marked [P] can run in parallel
-- Models within a story marked [P] can run in parallel
+- Backend schema/model work and frontend state work can run in parallel when they touch different files
 - Different user stories can be worked on in parallel by different team members
 
 ---
@@ -199,13 +200,13 @@ Examples of foundational tasks (adjust based on your project):
 ## Parallel Example: User Story 1
 
 ```bash
-# Launch all tests for User Story 1 together (if tests requested):
-Task: "Contract test for [endpoint] in tests/contract/test_[name].py"
-Task: "Integration test for [user journey] in tests/integration/test_[name].py"
+# Launch all tests for User Story 1 together:
+Task: "Backend API/service test in backend/src/[path]/[name].test.ts"
+Task: "Frontend state/component test in frontend/src/[path]/[name].test.tsx"
 
-# Launch all models for User Story 1 together:
-Task: "Create [Entity1] model in src/models/[entity1].py"
-Task: "Create [Entity2] model in src/models/[entity2].py"
+# Launch backend model/schema work and frontend state work together:
+Task: "Update backend model/schema in backend/src/models/ or backend/src/api/schemas.ts"
+Task: "Implement frontend API/state updates in frontend/src/services/api.ts and frontend/src/state/roomStore.ts"
 ```
 
 ---
@@ -218,14 +219,14 @@ Task: "Create [Entity2] model in src/models/[entity2].py"
 2. Complete Phase 2: Foundational (CRITICAL - blocks all stories)
 3. Complete Phase 3: User Story 1
 4. **STOP and VALIDATE**: Test User Story 1 independently
-5. Deploy/demo if ready
+5. Demo or validate if ready
 
 ### Incremental Delivery
 
 1. Complete Setup + Foundational → Foundation ready
-2. Add User Story 1 → Test independently → Deploy/Demo (MVP!)
-3. Add User Story 2 → Test independently → Deploy/Demo
-4. Add User Story 3 → Test independently → Deploy/Demo
+2. Add User Story 1 → Test independently → Demo/Validate (MVP!)
+3. Add User Story 2 → Test independently → Demo/Validate
+4. Add User Story 3 → Test independently → Demo/Validate
 5. Each story adds value without breaking previous stories
 
 ### Parallel Team Strategy
