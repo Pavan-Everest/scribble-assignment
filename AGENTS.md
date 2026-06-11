@@ -42,12 +42,12 @@ You are working on a monolithic repository for a multiplayer drawing game ("Scri
 -   When creating or editing files, ensure consistency with the existing directory structure detailed above.
 
 <!-- SPECKIT START -->
-Current Spec Kit plan: `specs/003-round-play-scoring/plan.md`
+Current Spec Kit plan: `specs/004-round-results-restart/plan.md`
 
-For the active round play and scoring feature, also read:
-- `specs/003-round-play-scoring/spec.md`
-- `specs/003-round-play-scoring/research.md`
-- `specs/003-round-play-scoring/data-model.md`
-- `specs/003-round-play-scoring/contracts/rooms.openapi.yaml`
-- `specs/003-round-play-scoring/quickstart.md`
+For the round results and restart feature, also read:
+- `specs/004-round-results-restart/spec.md`
+- `specs/004-round-results-restart/research.md`
+- `specs/004-round-results-restart/data-model.md`
+- `specs/004-round-results-restart/contracts/rooms.openapi.yaml`
+- `specs/004-round-results-restart/quickstart.md`
 <!-- SPECKIT END -->
